@@ -16,19 +16,21 @@ public class ShortestPath {
 		visited = new boolean[g.getSize()];
 		shortestDistances = new HashMap<Integer, Integer>();
 		LinkedList<Integer> queue = new LinkedList<Integer>();
+		LinkedList<Integer> levels = new LinkedList<Integer>();
 		queue.add(source);
+		levels.add(0);
 		visited[source] = true;
-		int dist = 1;
 		while(!queue.isEmpty()) {
 			int currentNode = queue.removeFirst();
+			int level = levels.removeFirst() + 1;
 			for(Integer neighbor : g.getAdjList().get(currentNode)) {
 				if(!visited[neighbor]) {
 					visited[neighbor] = true;
 					queue.add(neighbor);
-					shortestDistances.put(neighbor, dist*6);
+					levels.add(level);
+					shortestDistances.put(neighbor, level*6);
 				}
 			}
-			dist++;
 		}
 		
 	}
